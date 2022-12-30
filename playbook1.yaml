@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: shell change attribiute
+      shell: chattr -i /etc/resolv.conf
+    - name: "Example1: Validate if a String or line is present in the file"
+      lineinfile:
+        path: /etc/resolv.conf
+        line: "nameserver 6.6.6.6"
+        state: present
+        backup: yes

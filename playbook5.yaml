@@ -1,0 +1,9 @@
+---
+  - hosts: all
+    become: yes
+    tasks:
+      - name: install docker on hosts
+        apt:
+          name: docker , docker-compose
+          state: latest
+

@@ -1,0 +1,7 @@
+[servers]
+172.17.0.2
+172.17.0.3
+[servers:vars]
+ansible_user = devops
+ansible_port = 22
+

@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: install vim and some softs
+      apt:
+        name: jcal
+        state: latest
+    - name: run some commands
+      shell: |
+        uptime & ls
+        ifconfig
+        pwd
+        netstat -na
+    - name: run command modlule
+      command: "service ssh status"
+    - name: change resolv.conf attribiute
+      command: "chattr -i /etc/resolv.conf"
+    - name: change resolv.conf
+      command: "echo nameserver 6.6.6.6 >> /etc/resolv.conf"
