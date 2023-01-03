@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: true
+  tasks: 
+    - name: deploy first html file (oraclelinux)
+      copy:
+        src: files/default_site.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: 0644
+      
+           
