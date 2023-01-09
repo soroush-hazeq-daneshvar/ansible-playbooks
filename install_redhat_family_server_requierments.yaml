@@ -1,0 +1,9 @@
+---
+  - hosts: all
+    become: yes
+    tasks:
+      - name: install rehat family server requierments for ansible
+        dnf:
+          name: unzip
+          state: latest
+

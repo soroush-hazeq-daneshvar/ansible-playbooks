@@ -1,5 +1,12 @@
 [servers]
-172.17.0.2
+dispacher
+gitlab
+harbor
+prom
+main
+mail
+alert
+beta
 [servers:vars]
 ansible_user = devops
 ansible_port = 22
