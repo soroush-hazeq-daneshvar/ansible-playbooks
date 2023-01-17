@@ -1,0 +1,11 @@
+---
+- hosts: atlas
+  tasks:
+    - name: copy atlassian jira docker compose
+      copy:
+        src: /home/hex/Desktop/Docker/atlassian_server/
+        dest: /home/devops/atlassian_server
+    - name: Deploy atlassian jira compose
+      docker_compose:
+        project_src: /home/devops/atlassian_server
+        state: present
