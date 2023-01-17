@@ -5,9 +5,8 @@ harbor
 prom
 main
 mail
-alert
 beta
 [servers:vars]
 ansible_user = devops
-ansible_port = 22
+ansible_port = 65118
 

@@ -4,6 +4,9 @@
     tasks:
       - name: install docker on hosts
         apt:
-          name: docker , docker-compose
+          name: docker
           state: latest
-
+      - name: install docker-compose on hosts
+        apt:
+          name: docker-compose
+          state: latest

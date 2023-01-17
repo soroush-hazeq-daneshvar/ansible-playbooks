@@ -1,0 +1,26 @@
+---
+- hosts: gitlab
+  tasks:
+    - name: add GITLAB Directory in home
+      shell: mkdir gitlabhome
+
+    - name: add GITLAB_HOME in bashrc file
+      lineinfile:
+        path: ~/.bashrc
+        line: export GITLAB_HOME=~/gitlabhome
+        backup: true
+        create: true
+
+    - name: add GITLAB_HOME environment variable
+      shell: . /home/$USER/.bashrc
+
+    - name: copy docker compose
+      become: true
+      copy:
+        src: /home/hex/Desktop/Docker/gitlab
+        dest: /home/compose/
+    - name: Deploy gitlab compose
+      become: true
+      docker_compose:
+        project_src: /home/compose/gitlab
+        state: present
