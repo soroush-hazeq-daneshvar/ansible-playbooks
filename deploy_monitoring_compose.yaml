@@ -1,0 +1,12 @@
+---
+- hosts: prom
+  tasks:
+    - name: copy docker compose files
+      copy:
+        src: /home/hex/Desktop/Docker/Monitoring/
+        dest: /home/devops/Monitoring
+    - name: deploy monitoring
+      docker_compose:
+        project_src: /home/devops/Monitoring/
+        state: present
+
