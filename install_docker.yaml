@@ -1,5 +1,5 @@
 ---
-  - hosts: all
+  - hosts: harbor
     become: yes
     tasks:
       - name: install docker on hosts

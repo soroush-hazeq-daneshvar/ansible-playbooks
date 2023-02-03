@@ -1,0 +1,13 @@
+---
+- hosts: all, !prom, !kmaster
+  become: yes
+  tasks:
+    - name: copy docker compose for node exporter and cadvisor
+      copy:
+        src: /home/hex/Desktop/Docker/node_cadvisor/
+        dest: /home/devops/node_cadvisor
+    - name: deploy monitoring
+      docker_compose:
+        project_src: /home/devops/node_cadvisor/
+        state: present
+

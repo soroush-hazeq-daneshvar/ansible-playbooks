@@ -1,10 +1,22 @@
 ---
 - hosts: harbor
+  become: yes
   tasks:
     - name: copy docker compose file
       copy:
-        src: /home/hex/Desktop/harbor
+        src: /home/hex/Desktop/Docker/harbor
         dest: /home/devops/
+    
+    - name: check data directory
+      stat:
+        path: /data
+      register: data_dir
+    - name:
+      file:
+        path: /data
+        state: directory
+        mode: 0775
+      when: data_dir.stat.exists == false
 
     - name : execute permission for install.sh
       shell: chmod +x /home/devops/harbor/install.sh

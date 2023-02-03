@@ -6,8 +6,9 @@ prom
 main
 mail
 beta
-atlas
+kmaster
 [servers:vars]
 ansible_user = devops
 ansible_port = 65118
+ansible_python_interpreter=/usr/bin/python3
 
