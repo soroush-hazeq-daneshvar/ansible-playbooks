@@ -7,6 +7,8 @@ main
 mail
 beta
 kmaster
+jenkins
+elkstack
 [servers:vars]
 ansible_user = devops
 ansible_port = 65118

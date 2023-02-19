@@ -1,0 +1,12 @@
+---
+- hosts: jenkins
+  become: true
+  tasks:
+    - name: copy docker compose
+      copy:
+        src: /home/hex/Desktop/Docker/jenkins
+        dest: /home/devops/
+    - name: Deploy jenkins compose
+      docker_compose:
+        project_src: /home/devops/jenkins/
+        state: present

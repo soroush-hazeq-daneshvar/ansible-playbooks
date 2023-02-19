@@ -1,0 +1,12 @@
+---
+- hosts: elkstack
+  become: true
+  tasks:
+    - name: copy docker compose
+      copy:
+        src: /home/hex/Desktop/Docker/elk_stack
+        dest: /home/devops
+    - name: Deploy elkstack compose
+      docker_compose:
+        project_src: /home/devops/elk_stack/
+        state: present
