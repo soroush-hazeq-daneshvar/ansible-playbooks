@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: copy docker compose to server
+    copy:
+      src: /home/hex/Desktop/Docker/elk_stack/filebeat/
+      dest: /home/devops/filebeat/
+      mode: '0644'
+  - name: Deploy filebeat compose
+    docker_compose:
+      project_src: /home/devops/filebeat/
+      state: present
+    failed_when: "'failed' in result.stderr or 'ERROR' in result.stderr"
+
+
+

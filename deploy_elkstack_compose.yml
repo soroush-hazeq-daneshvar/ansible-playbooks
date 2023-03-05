@@ -2,11 +2,27 @@
 - hosts: elkstack
   become: true
   tasks:
-    - name: copy docker compose
+    - name: Copy Docker Compose file
       copy:
         src: /home/hex/Desktop/Docker/elk_stack
         dest: /home/devops
-    - name: Deploy elkstack compose
+      register: copy_result
+
+    - name: Print copy result
+      debug:
+        var: copy_result
+
+    - name: Deploy Elk Stack
       docker_compose:
         project_src: /home/devops/elk_stack/
         state: present
+      register: deploy_result
+
+    - name: Print deployment result
+      debug:
+        var: deploy_result
+
+    - name: Fail if deployment failed
+      fail:
+        msg: "Deployment failed."
+      when: "'Failed' in deploy_result.msg"
