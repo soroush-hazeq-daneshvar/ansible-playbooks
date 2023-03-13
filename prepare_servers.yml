@@ -1,0 +1,47 @@
+---
+- name: Configure server
+  hosts: all
+  become: true
+
+  vars:
+    ssh_port: 65118
+    new_user: devops
+    ssh_key_path: /home/hex/.ssh/id_ed25519.pub
+
+  tasks:
+    # Add new user
+    - name: Add new user
+      user:
+        name: "{{ new_user }}"
+        password: "{{ '0221killer.sd' | password_hash('sha512') }}"
+        shell: /bin/bash
+        createhome: yes
+        state: present
+      become: true
+
+    # Copy SSH keys
+    - name: Copy SSH keys
+      authorized_key:
+        user: "{{ new_user }}"
+        state: present
+        key: "{{ lookup('file', ssh_key_path) }}"
+      become: true
+
+    # Change SSH port
+    - name: Change SSH port
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?Port .*'
+        line: 'Port {{ ssh_port }}'
+        state: present
+        backup: yes
+      become: true
+
+    # Restart and enable SSH service
+    - name: Restart and enable SSH service
+      service:
+        name: sshd
+        state: restarted
+        enabled: true
+      become: true
+

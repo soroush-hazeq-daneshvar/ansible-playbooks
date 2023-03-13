@@ -25,4 +25,5 @@
     - name: Fail if deployment failed
       fail:
         msg: "Deployment failed."
-      when: "'Failed' in deploy_result.msg"
+      when: deploy_result.failed
+

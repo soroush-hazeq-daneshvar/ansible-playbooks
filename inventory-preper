@@ -1,17 +1,6 @@
 [servers]
-dispacher
-gitlab
-harbor
-prom
-main
-mail
-beta
-kmaster
-jenkins
-elkstack
 kubemaster
 [servers:vars]
 ansible_user = devops
-ansible_port = 65118
 ansible_python_interpreter=/usr/bin/python3
 
