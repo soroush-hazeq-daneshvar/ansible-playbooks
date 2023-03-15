@@ -70,3 +70,6 @@
       content: "# {{ role_name }} meta"
       dest: "{{ playbook_dir }}/roles/{{ role_name }}/meta/main.yml"
 
+
+# How to use ansible-playbook create-playbook-skeleton.yml -e "role_name=my_role playbook_name=my_playbook"
+
