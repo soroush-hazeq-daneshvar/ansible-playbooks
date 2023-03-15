@@ -1,0 +1,72 @@
+---
+- name: Create Ansible playbook skeleton
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+  - name: Create directories
+    file:
+      path: "{{ playbook_dir }}/roles/{{ role_name }}/{{ item }}"
+      state: directory
+      mode: '0755'
+    with_items:
+      - tasks
+      - handlers
+      - templates
+      - files
+      - vars
+      - defaults
+      - meta
+
+  - name: Create playbook YAML file
+    copy:
+      content: |
+        ---
+        - hosts: all
+          become: true
+          roles:
+            - {{ role_name }}
+      dest: "{{ playbook_dir }}/{{ playbook_name }}.yml"
+
+  - name: Create role YAML file
+    copy:
+      content: |
+        ---
+        # {{ role_name }} role
+
+        # Include tasks
+        - include_tasks: tasks/main.yml
+
+        # Include handlers
+        - include: handlers/main.yml
+
+        # Include variables
+        - include_vars: vars/main.yml
+
+      dest: "{{ playbook_dir }}/roles/{{ role_name }}/main.yml"
+
+  - name: Create tasks file
+    copy:
+      content: "# {{ role_name }} tasks"
+      dest: "{{ playbook_dir }}/roles/{{ role_name }}/tasks/main.yml"
+
+  - name: Create handlers file
+    copy:
+      content: "# {{ role_name }} handlers"
+      dest: "{{ playbook_dir }}/roles/{{ role_name }}/handlers/main.yml"
+
+  - name: Create variables file
+    copy:
+      content: "# {{ role_name }} variables"
+      dest: "{{ playbook_dir }}/roles/{{ role_name }}/vars/main.yml"
+
+  - name: Create defaults file
+    copy:
+      content: "# {{ role_name }} defaults"
+      dest: "{{ playbook_dir }}/roles/{{ role_name }}/defaults/main.yml"
+
+  - name: Create meta file
+    copy:
+      content: "# {{ role_name }} meta"
+      dest: "{{ playbook_dir }}/roles/{{ role_name }}/meta/main.yml"
+
