@@ -1,36 +1,42 @@
----
-- hosts: harbor
+- name: Deploy Harbor
+  hosts: harbor
   become: yes
   tasks:
-    - name: copy docker compose file
+    - name: Copy Docker Compose file
       copy:
         src: /home/hex/Desktop/Docker/harbor
         dest: /home/devops/
-    
-    - name: check data directory
+
+    - name: Check data directory
       stat:
         path: /data
       register: data_dir
-    - name:
+    - name: Create data directory if it doesn't exist
       file:
         path: /data
         state: directory
         mode: 0775
       when: data_dir.stat.exists == false
 
-    - name : execute permission for install.sh
-      shell: chmod +x /home/devops/harbor/install.sh
+    - name: Set execute permission for install.sh
+      file:
+        path: /home/devops/harbor/install.sh
+        mode: 'u+x,g+x,o+x'
 
-    - name: execute permission for common.sh
-      shell: chmod +x /home/devops/harbor/common.sh
+    - name: Set execute permission for common.sh
+      file:
+        path: /home/devops/harbor/common.sh
+        mode: 'u+x,g+x,o+x'
 
-    - name: execute permission for prepare
-      shell: chmod +x /home/devops/harbor/prepare
-  
-    - name: Deploy and install harbor compose
+    - name: Set execute permission for prepare
+      file:
+        path: /home/devops/harbor/prepare
+        mode: 'u+x,g+x,o+x'
+
+    - name: Deploy and install Harbor Compose
       shell: bash /home/devops/harbor/install.sh
-      
-    - name: Deploy gitlab compose
+
+    - name: Deploy GitLab Compose
       docker_compose:
         project_src: /home/devops/harbor/
         state: present

@@ -1,0 +1,11 @@
+---
+# elkstack role
+
+# Include tasks
+- include_tasks: tasks/main.yml
+
+# Include handlers
+- include: handlers/main.yml
+
+# Include variables
+- include_vars: vars/main.yml
