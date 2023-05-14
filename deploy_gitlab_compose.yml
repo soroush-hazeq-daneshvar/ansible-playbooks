@@ -1,21 +1,6 @@
 ---
 - hosts: gitlab
   tasks:
-    - name: check if GITLAB directory exists
-      stat:
-        path: /home/devops/gitlabhome
-      register: dir_check
-    - name: add GITLAB Directory in home
-      file:
-        path: /home/devops/gitlabhome
-        state: directory
-      when: not dir_check.stat.exists
-    - name: add GITLAB_HOME in bashrc file
-      lineinfile:
-        path: ~/.bashrc
-        line: export GITLAB_HOME=~/gitlabhome
-        backup: true
-        create: true
     - name: copy docker compose
       become: true
       copy:
