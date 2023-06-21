@@ -1,0 +1,10 @@
+[masters]
+kubemaster
+[workers]
+kubeworker1
+kubeworker2
+[all:vars]
+ansible_user = devops
+ansible_port = 65118
+ansible_python_interpreter=/usr/bin/python3
+
