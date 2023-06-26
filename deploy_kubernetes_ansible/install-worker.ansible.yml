@@ -40,6 +40,15 @@
         path: /etc/modules-load.d/br_netfilter.conf
         line: "br-netfilter"
 
+    - name: Stop AppArmor Service
+      service:
+        name: apparmor
+        state: stopped
+        enabled: no
+
+    - name: Disable AppArmor Service
+      command: systemctl disable apparmor
+
     - name: Install required packages
       apt:
         name: "{{ item }}"
@@ -352,7 +361,7 @@
     - name: Update repositories
       apt:
         update_cache: yes
-        cache_valid_time: 3600
+        force_apt_get: yes
 
     - name: Install kubelet kubeadm kubectl
       apt:
